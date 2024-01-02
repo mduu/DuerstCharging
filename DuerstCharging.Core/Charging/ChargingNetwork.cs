@@ -1,7 +1,7 @@
 using System.Collections.Immutable;
 using System.Net;
 
-namespace DuerstCharging.Core;
+namespace DuerstCharging.Core.Charging;
 
 public class ChargingNetwork
 {

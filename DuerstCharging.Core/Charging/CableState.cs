@@ -1,4 +1,4 @@
-namespace DuerstCharging.Core;
+namespace DuerstCharging.Core.Charging;
 
 public enum CableState
 {

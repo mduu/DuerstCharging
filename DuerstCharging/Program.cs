@@ -1,5 +1,6 @@
 ﻿using System.Collections.Immutable;
 using DuerstCharging.Core;
+using DuerstCharging.Core.Charging;
 
 Console.WriteLine("Scanning charging network ...");
 

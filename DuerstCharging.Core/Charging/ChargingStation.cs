@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using FluentModbus;
 
-namespace DuerstCharging.Core;
+namespace DuerstCharging.Core.Charging;
 
 public class ChargingStation
 {
