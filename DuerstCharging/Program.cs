@@ -1,4 +1,4 @@
-﻿using System.Collections.Immutable;
+﻿using DuerstCharging.Core;
 using DuerstCharging.Core.Charging;
 using DuerstCharging.Core.Scheduling;
 
@@ -17,17 +17,31 @@ var schedule = new Schedule(TimeProvider.System)
     }
 };
 
-var chargingNetwork = new ChargingNetwork();
+var chargingManager = new ChargingManager(schedule,
+    new ChargingNetwork(),
+    true);
 
-var chargingStations =
-    (await chargingNetwork.GetAllChargingStations())
-    .ToImmutableArray();
-
-Console.WriteLine($"Found {chargingStations.Length} charging stations.");
-
-foreach (var chargingStation in chargingStations)
+try
 {
-    Console.WriteLine($"- Charging-Station {chargingStation}: ChargingState={chargingStation.ChargingState}, Cable-State={chargingStation.CableState}, Error-Code={chargingStation.ErrorCode}");
+    await chargingManager.ScanAndPrint();
+
+    var cancellationToken = new CancellationToken(false);
+    await chargingManager.StartUp(cancellationToken);
+
+    while (true)
+    {
+        await chargingManager.UpdateIfNeeded(cancellationToken);
+        await Task.Delay(1000, cancellationToken);
+    }
+}
+catch (Exception ex)
+{
+    Console.WriteLine($"Error! Exception: {ex.Message}");
+}
+finally
+{
+    Console.WriteLine("Shutting down ...");
+    await chargingManager.Shutdown();
 }
 
 Console.WriteLine("Done.");

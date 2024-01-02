@@ -2,11 +2,11 @@ namespace DuerstCharging.Core.Scheduling;
 
 public class Schedule(TimeProvider timeProvider)
 {
-    public IEnumerable<ScheduleEntry> ChargingProhibited { get; set; }
+    public IEnumerable<ScheduleEntry> ChargingProhibited { get; init; } = Enumerable.Empty<ScheduleEntry>();
 
     public bool GetIsChargingProhibited()
     {
-        var currentTime = timeProvider.GetUtcNow();
+        var currentTime = timeProvider.GetLocalNow();
         var currentDayOfWeek = currentTime.DayOfWeek;
         var currentTimeOnly = TimeOnly.FromTimeSpan(currentTime.TimeOfDay);
 
