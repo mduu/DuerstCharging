@@ -4,7 +4,7 @@ public class Schedule(TimeProvider timeProvider)
 {
     public IEnumerable<ScheduleEntry> ChargingProhibited { get; set; }
 
-    public bool GetIsChargingAllowed()
+    public bool GetIsChargingProhibited()
     {
         var currentTime = timeProvider.GetUtcNow();
         var currentDayOfWeek = currentTime.DayOfWeek;

@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\DuerstCharging.Core\DuerstCharging.Core.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="FakeItEasy" Version="8.0.1"/>
+        <PackageReference Include="FluentAssertions" Version="6.12.0"/>
+        <PackageReference Include="Microsoft.Extensions.TimeProvider.Testing" Version="8.0.0"/>
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0"/>
+        <PackageReference Include="xunit" Version="2.6.4"/>
+    </ItemGroup>
+
+</Project>

@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DuerstCharging", "DuerstCha
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DuerstCharging.Core", "DuerstCharging.Core\DuerstCharging.Core.csproj", "{76621AC2-B377-4F63-9606-B8BC31E98B27}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DuerstCharging.Core.Tests", "DuerstCharging.Core.Tests\DuerstCharging.Core.Tests.csproj", "{B91603AF-B946-46C9-95BA-182E48E49BCC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{76621AC2-B377-4F63-9606-B8BC31E98B27}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{76621AC2-B377-4F63-9606-B8BC31E98B27}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{76621AC2-B377-4F63-9606-B8BC31E98B27}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B91603AF-B946-46C9-95BA-182E48E49BCC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B91603AF-B946-46C9-95BA-182E48E49BCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B91603AF-B946-46C9-95BA-182E48E49BCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B91603AF-B946-46C9-95BA-182E48E49BCC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
