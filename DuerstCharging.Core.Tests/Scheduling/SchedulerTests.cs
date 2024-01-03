@@ -1,5 +1,8 @@
+using DuerstCharging.Core.Configuration;
 using DuerstCharging.Core.Scheduling;
+using FakeItEasy;
 using FluentAssertions;
+using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Time.Testing;
 using Xunit;
 
@@ -12,18 +15,23 @@ public class SchedulerTests
 
     public SchedulerTests()
     {
-        sut = new Schedule(timeProviderFake)
-        {
-            ChargingProhibited = new List<ScheduleEntry>
+        var options = A.Fake<IOptionsMonitor<ChargingOptions>>();
+        A.CallTo(() => options.CurrentValue).Returns(
+            new ChargingOptions
             {
-                new(DayOfWeek.Monday, new TimeOnly(7, 0), new TimeOnly(20, 0)),
-                new(DayOfWeek.Tuesday, new TimeOnly(7, 0), new TimeOnly(20, 0)),
-                new(DayOfWeek.Wednesday, new TimeOnly(7, 0), new TimeOnly(20, 0)),
-                new(DayOfWeek.Thursday, new TimeOnly(7, 0), new TimeOnly(20, 0)),
-                new(DayOfWeek.Friday, new TimeOnly(7, 0), new TimeOnly(20, 0)),
-                new(DayOfWeek.Saturday, new TimeOnly(7, 0), new TimeOnly(13, 0)),
+                ChargingProhibited =
+                [
+                    new(DayOfWeek.Monday, new TimeOnly(7, 0), new TimeOnly(20, 0)),
+                    new(DayOfWeek.Tuesday, new TimeOnly(7, 0), new TimeOnly(20, 0)),
+                    new(DayOfWeek.Wednesday, new TimeOnly(7, 0), new TimeOnly(20, 0)),
+                    new(DayOfWeek.Thursday, new TimeOnly(7, 0), new TimeOnly(20, 0)),
+                    new(DayOfWeek.Friday, new TimeOnly(7, 0), new TimeOnly(20, 0)),
+                    new(DayOfWeek.Saturday, new TimeOnly(7, 0), new TimeOnly(13, 0))
+                ]
             }
-        };
+        );
+
+        sut = new Schedule(timeProviderFake, options);
     }
 
     [Fact]
