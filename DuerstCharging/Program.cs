@@ -2,7 +2,7 @@
 using DuerstCharging.Core.Charging;
 using DuerstCharging.Core.Scheduling;
 
-Console.WriteLine("Scanning charging network ...");
+Console.WriteLine("Duerst Charging Automation");
 
 var schedule = new Schedule(TimeProvider.System)
 {

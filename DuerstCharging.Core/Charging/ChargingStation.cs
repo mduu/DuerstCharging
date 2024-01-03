@@ -17,7 +17,7 @@ public class ChargingStation
     public ChargingState ChargingState { get; private set; }
     public CableState CableState { get; private set; }
     public uint ErrorCode { get; private set; }
-    public bool IsEnabled => ChargingState != ChargingState.TemperatureTooHighOrSuspended;
+    public bool IsEnabled => ChargingState != ChargingState.Suspended;
 
     public static async Task<ChargingStation> Create(IPAddress ipAddress)
     {
