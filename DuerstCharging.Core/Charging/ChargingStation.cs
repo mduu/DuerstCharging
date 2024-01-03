@@ -1,15 +1,21 @@
 ﻿using System.Net;
 using FluentModbus;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace DuerstCharging.Core.Charging;
 
 public class ChargingStation
 {
     private const int TheUnitIdentifier = 255;
+    private readonly ILogger<ChargingStation> logger;
     private DateTimeOffset lastRetrieve = DateTimeOffset.MinValue;
 
-    private ChargingStation(IPAddress ipAddress)
+    private ChargingStation(
+        ILogger<ChargingStation> logger,
+        IPAddress ipAddress)
     {
+        this.logger = logger;
         IpAddress = ipAddress;
     }
 
@@ -19,10 +25,16 @@ public class ChargingStation
     public uint ErrorCode { get; private set; }
     public bool IsEnabled => ChargingState != ChargingState.Suspended;
 
-    public static async Task<ChargingStation> Create(IPAddress ipAddress)
+    public static async Task<ChargingStation> Create(
+        IServiceProvider serviceProvider,
+        IPAddress ipAddress)
     {
-        var chargingStation = new ChargingStation(ipAddress);
+        var chargingStation = new ChargingStation(
+            serviceProvider.GetRequiredService<ILogger<ChargingStation>>(),
+            ipAddress);
+
         await chargingStation.RetrieveInformation();
+
         return chargingStation;
     }
 
@@ -64,7 +76,9 @@ public class ChargingStation
 
         if (simulateOnly)
         {
-            Console.WriteLine($"Simulate setting enable={value} of charging state {IpAddress}");
+            logger.LogInformation("Simulate setting enable={Value} of charging state {IpAddress}",
+                value,
+                IpAddress);
         }
         else
         {

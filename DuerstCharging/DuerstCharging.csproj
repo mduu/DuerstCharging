@@ -9,17 +9,27 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Content Include="..\.dockerignore">
-        <Link>.dockerignore</Link>
-      </Content>
+        <Content Include="..\.dockerignore">
+            <Link>.dockerignore</Link>
+        </Content>
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\DuerstCharging.Core\DuerstCharging.Core.csproj" />
+        <ProjectReference Include="..\DuerstCharging.Core\DuerstCharging.Core.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="FluentModbus" Version="5.0.3" />
+        <PackageReference Include="FluentModbus" Version="5.0.3"/>
+        <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Update="appsettings*.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="appsettings.*.json">
+            <DependentUpon>appsettings.json</DependentUpon>
+        </None>
     </ItemGroup>
 
 </Project>

@@ -1,47 +1,48 @@
-﻿using DuerstCharging.Core;
+﻿using DuerstCharging;
+using DuerstCharging.Core;
 using DuerstCharging.Core.Charging;
+using DuerstCharging.Core.Configuration;
 using DuerstCharging.Core.Scheduling;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
-Console.WriteLine("Duerst Charging Automation");
+var builder = Host.CreateApplicationBuilder(args);
+builder.Environment.ApplicationName = "Duerst Charging";
 
-var schedule = new Schedule(TimeProvider.System)
-{
-    ChargingProhibited = new List<ScheduleEntry>
+builder.Services.Configure<ChargingOptions>(
+    builder.Configuration.GetSection(nameof(ChargingOptions)));
+
+builder.Services.AddSingleton<ChargingNetwork>();
+
+builder.Services.AddSingleton(
+    new Schedule(TimeProvider.System)
     {
-        new(DayOfWeek.Monday, new TimeOnly(7, 0), new TimeOnly(20, 0)),
-        new(DayOfWeek.Tuesday, new TimeOnly(7, 0), new TimeOnly(20, 0)),
-        new(DayOfWeek.Wednesday, new TimeOnly(7, 0), new TimeOnly(20, 0)),
-        new(DayOfWeek.Thursday, new TimeOnly(7, 0), new TimeOnly(20, 0)),
-        new(DayOfWeek.Friday, new TimeOnly(7, 0), new TimeOnly(20, 0)),
-        new(DayOfWeek.Saturday, new TimeOnly(7, 0), new TimeOnly(13, 0)),
-    }
-};
+        ChargingProhibited = new List<ScheduleEntry>
+        {
+            new(DayOfWeek.Monday, new TimeOnly(7, 0), new TimeOnly(20, 0)),
+            new(DayOfWeek.Tuesday, new TimeOnly(7, 0), new TimeOnly(20, 0)),
+            new(DayOfWeek.Wednesday, new TimeOnly(7, 0), new TimeOnly(20, 0)),
+            new(DayOfWeek.Thursday, new TimeOnly(7, 0), new TimeOnly(20, 0)),
+            new(DayOfWeek.Friday, new TimeOnly(7, 0), new TimeOnly(20, 0)),
+            new(DayOfWeek.Saturday, new TimeOnly(7, 0), new TimeOnly(13, 0)),
+        }
+    });
 
-var chargingManager = new ChargingManager(schedule,
-    new ChargingNetwork(),
-    true);
+builder.Services.AddSingleton<ChargingManager>();
 
-try
-{
-    await chargingManager.ScanAndPrint();
+builder.Services.AddHostedService<Worker>();
 
-    var cancellationToken = new CancellationToken(false);
-    await chargingManager.StartUp(cancellationToken);
+using IHost host = builder.Build();
 
-    while (true)
-    {
-        await chargingManager.UpdateIfNeeded(cancellationToken);
-        await Task.Delay(1000, cancellationToken);
-    }
-}
-catch (Exception ex)
-{
-    Console.WriteLine($"Error! Exception: {ex.Message}");
-}
-finally
-{
-    Console.WriteLine("Shutting down ...");
-    await chargingManager.Shutdown();
-}
+var logger = host.Services.GetRequiredService<ILogger<Program>>();
+logger.LogInformation("{AppName} is running", builder.Environment.ApplicationName);
+logger.LogInformation("EnvironmentName={EnvironmentName}", builder.Environment.EnvironmentName);
+var options = host.Services.GetRequiredService<IOptions<ChargingOptions>>();
+logger.LogInformation(
+    "Starting configuration: Simulation-only={SimulationOnly}, ChargingStationIpAddress={ChargingStationIpAddress}",
+    options.Value.SimulationOnly,
+    options.Value.ChargingStationIpAddress);
 
-Console.WriteLine("Done.");
+await host.RunAsync();
