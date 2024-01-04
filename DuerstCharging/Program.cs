@@ -3,6 +3,7 @@ using DuerstCharging.Core;
 using DuerstCharging.Core.Charging;
 using DuerstCharging.Core.Configuration;
 using DuerstCharging.Core.Scheduling;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -22,6 +23,10 @@ Log.Logger = new LoggerConfiguration()
 builder.Logging.ClearProviders();
 builder.Services.AddLogging(loggingBuilder =>
     loggingBuilder.AddSerilog(dispose: true));
+
+builder.Configuration
+    .AddJsonFile("appsettings.json", false, true)
+    .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", true, true);
 
 builder.Services.Configure<ChargingOptions>(
     builder.Configuration.GetSection(nameof(ChargingOptions)));

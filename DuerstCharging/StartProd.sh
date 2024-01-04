@@ -1,4 +1,5 @@
 #!/bin/bash
 # This script starts the Charging Manger in Production Mode
 
-dotnet DuerstCharging.dll --environment production 
+cd /opt/duerstcharging
+/home/admin/.dotnet/dotnet DuerstCharging.dll --environment Production 
