@@ -7,9 +7,21 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Serilog;
+using Serilog.Events;
 
 var builder = Host.CreateApplicationBuilder(args);
 builder.Environment.ApplicationName = "Duerst Charging";
+
+Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Information()
+    .WriteTo.File("logs/chargingman.log", rollingInterval: RollingInterval.Month)
+    .WriteTo.Console(LogEventLevel.Information)
+    .CreateLogger();
+
+builder.Logging.ClearProviders();
+builder.Services.AddLogging(loggingBuilder =>
+    loggingBuilder.AddSerilog(dispose: true));
 
 builder.Services.Configure<ChargingOptions>(
     builder.Configuration.GetSection(nameof(ChargingOptions)));
