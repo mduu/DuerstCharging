@@ -1,6 +1,12 @@
 # Duerst Charging
 
-## Overview
+## Current status
+
+[![Build & Test](https://github.com/mduu/DuerstCharging/actions/workflows/dotnet.yml/badge.svg?branch=main)](https://github.com/mduu/DuerstCharging/actions/workflows/dotnet.yml)
+
+**🚀 This software is in production usage at my own home.**
+
+# Overview
 
 This project implements a service for scheduling based charging for the KEBA P30 c-series charging station using
 Modbus TCP and is written in .Net 8 / C# 12. It will *suspend* the charging station state during the given schedule
@@ -16,17 +22,21 @@ charging station.
 >My .Net app does read and change the charging stations *charging state* just as the smartphone app from KEBA
 > does. This means that you have use both of them together and they are compatible and work side-by-side.
 
-## Current status
-
-[![Build & Test](https://github.com/mduu/DuerstCharging/actions/workflows/dotnet.yml/badge.svg?branch=main)](https://github.com/mduu/DuerstCharging/actions/workflows/dotnet.yml)
-
-**🚀 This software is in production usage at my own home.**
-
 ## Dependencies
 
+Runtime dependencies:
+
+- .Net 8 Runtime
+
+Build dependencies:
+
 - .Net 8 / C# 12
-- FluentModbus 5
-- SeriLog 5
+- Nuget packages
+    - FluentModbus 5
+    - SeriLog 5
+    - Unit-Testing:
+        - Xunit
+        - FluentAssertions
 
 ## Platform
 
