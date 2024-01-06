@@ -7,7 +7,7 @@ namespace DuerstCharging.Core.Charging;
 
 public class ChargingNetwork(
     IOptionsMonitor<ChargingOptions> options,
-    IServiceProvider serviceProvider)
+    IServiceProvider serviceProvider) : IChargingNetwork
 {
     public async Task<ImmutableArray<ChargingStation>> GetAllChargingStations()
     {

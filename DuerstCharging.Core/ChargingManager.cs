@@ -10,7 +10,7 @@ public class ChargingManager(
     ILogger<ChargingManager> logger,
     IOptionsMonitor<ChargingOptions> options,
     Schedule schedule,
-    ChargingNetwork chargingNetwork)
+    IChargingNetwork chargingNetwork) : IChargingManager
 {
     private bool lastWasProhibited;
 

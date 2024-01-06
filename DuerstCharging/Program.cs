@@ -1,8 +1,5 @@
 ﻿using DuerstCharging;
-using DuerstCharging.Core;
-using DuerstCharging.Core.Charging;
 using DuerstCharging.Core.Configuration;
-using DuerstCharging.Core.Scheduling;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -31,11 +28,7 @@ builder.Configuration
 builder.Services.Configure<ChargingOptions>(
     builder.Configuration.GetSection(nameof(ChargingOptions)));
 
-builder.Services.AddSingleton<ChargingNetwork>();
-builder.Services.AddTransient<TimeProvider>(_ => TimeProvider.System);
-builder.Services.AddSingleton<Schedule>();
-builder.Services.AddSingleton<ChargingManager>();
-builder.Services.AddHostedService<Worker>();
+builder.Services.AddChargingServices();
 
 using var host = builder.Build();
 

@@ -6,7 +6,7 @@ namespace DuerstCharging;
 
 public class Worker(
     ILogger<Worker> logger,
-    ChargingManager chargingManager) : BackgroundService
+    IChargingManager chargingManager) : BackgroundService
 {
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
