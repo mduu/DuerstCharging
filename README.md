@@ -18,18 +18,24 @@ charging station.
 
 ## Current status
 
-### This software is in production usage at my own home.
+[![Build & Test](https://github.com/mduu/DuerstCharging/actions/workflows/dotnet.yml/badge.svg?branch=main)](https://github.com/mduu/DuerstCharging/actions/workflows/dotnet.yml)
 
-The production system I use is a Raspberry Pi 3b (ARM 32bit) with latest *Raspberry Pi OS* (Debian-based)
-
-It is tested on my Mac (Dev machine, Arm64) and is running in production on Raspberry Pi 3b (Arm32) but should run on
-all other supported .Net platforms (Mac, Linux, Windows - 32/64 bit).
+**🚀 This software is in production usage at my own home.**
 
 ## Dependencies
 
 - .Net 8 / C# 12
 - FluentModbus 5
 - SeriLog 5
+
+## Platform
+
+**Cross-platform:** Linux, Mac & Windows (see .Net 8 supported runtimes)
+
+Tested:
+
+- The production system I use is a Raspberry Pi 3b (ARM 32bit) with latest *Raspberry Pi OS* (Debian-based)
+- For development it runs on Mac (Apple silivon)
 
 ## Configuration
 
