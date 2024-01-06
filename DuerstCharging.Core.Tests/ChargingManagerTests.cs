@@ -16,6 +16,7 @@ public class ChargingManagerTests
     private readonly IOptionsMonitor<ChargingOptions> options;
     private readonly ISchedule schedule = A.Fake<ISchedule>();
     private readonly ChargingManager sut;
+    private readonly IChargingStation theChargingStation = A.Fake<IChargingStation>();
 
     private ChargingOptions chargingOptions = new()
     {
@@ -23,8 +24,6 @@ public class ChargingManagerTests
         ChargingProhibited = Array.Empty<ScheduleEntry>(),
         ChargingStationIpAddress = "1.1.1.1"
     };
-
-    private IChargingStation theChargingStation = A.Fake<IChargingStation>();
 
     public ChargingManagerTests()
     {
