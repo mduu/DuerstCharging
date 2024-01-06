@@ -9,6 +9,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deploy", "Deploy", "{9C9D68A9-83FC-4F83-AEE0-8DEBE53C0E63}"
 	ProjectSection(SolutionItems) = preProject
 		Deploy\PublishAndDeploy.sh = Deploy\PublishAndDeploy.sh
+		Deploy\duerstcharging.service = Deploy\duerstcharging.service
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{B1E796A1-C91C-48A3-A561-B6268E666545}"

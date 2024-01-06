@@ -1,0 +1,18 @@
+[Unit]
+Description=Duerst Charging Manager
+Wants=network.target
+After=syslog.target network-online.target
+
+[Service]
+Type=simple
+ExecStart=/opt/duerstcharging/StartProd.sh
+Restart=on-failure
+RestartSec=10
+KillMode=process
+User=<YOUR_USERNAME_FOR_THIS_SERVICE>
+
+Environment=DOTNET_ROOT=<PATH_TO_YOUR_DOTNET_INSTALLATION>
+Environment=DOTNET_ENVIRONMENT=Production
+
+[Install]
+WantedBy=multi-user.target

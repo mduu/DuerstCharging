@@ -6,14 +6,24 @@ This project implements a service for scheduling based charging for the KEBA P30
 Modbus TCP and is written in .Net 8 / C# 12. It will *suspend* the charging station state during the given schedule
 and enable it again outside of the prohibited charging times (see section "Configuration*).
 
-It is tested on my Mac (Dev machine, Arm64) and is running in production on Raspberry Pi 3b (Arm32) but should run on
-all other supported .Net platforms (Mac, Linux, Windows).
+You can also use the KEBA smartphone app to control the suspended / enabled state of our charging station manually.
+This is useful if you need to charge NOW no matter if the schedule does prohibit it now. Means you can overrule
+my application using the KEBA smartphone app. You also use the smartphone app to monitor/verify the state of your
+charging station.
+
+> **Note:**
+>
+>My .Net app does read and change the charging stations *charging state* just as the smartphone app from KEBA
+> does. This means that you have use both of them together and they are compatible and work side-by-side.
 
 ## Current status
 
-**This software is in production usage at my home.**
+### This software is in production usage at my own ~~~~home.
 
-The production system I use is a Raspberry Pi 3b with
+The production system I use is a Raspberry Pi 3b (ARM 32bit) with latest *Raspberry Pi OS* (Debian-based)
+
+It is tested on my Mac (Dev machine, Arm64) and is running in production on Raspberry Pi 3b (Arm32) but should run on
+all other supported .Net platforms (Mac, Linux, Windows - 32/64 bit).
 
 ## Dependencies
 
@@ -84,6 +94,20 @@ in *DuerstCharging/bin/Release/net8.0/publish*.
 I'd recommend run the app as service on the system startup. How this is done depends on the operating sysstem
 you use. See section *Links* on how to do it for example on Linux systems like Raspberry Pi's
 *Paspberry Pi OS*.
+
+To simplify this I added a little bash script called ``StartProd.sh`` which starts the .Net app
+with environment set to *Production*. On my Raspberry Pi I registered this as system service like written
+[here](https://timleland.com/how-to-run-a-linux-program-on-startup/) and the service configuration I've added to
+*Deploy/duerstcharging.service*.
+
+## Logs / Monitoring
+
+The software will write logs to logfiles in ./logs/ (rolling logfile per month) and for convenience to the
+standard console. This way you can also check if the software started, stopped and what if did when it runs in the
+background as a service.
+
+Another tool is the KEBA smartphone-app where you can see the state of your wallbox or the web-interface available
+on the wallbox IP address.
 
 ## To-Do's / Ideas
 
