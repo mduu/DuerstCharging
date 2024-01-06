@@ -18,7 +18,7 @@ charging station.
 
 ## Current status
 
-### This software is in production usage at my own ~~~~home.
+### This software is in production usage at my own home.
 
 The production system I use is a Raspberry Pi 3b (ARM 32bit) with latest *Raspberry Pi OS* (Debian-based)
 
