@@ -11,7 +11,7 @@ public static class ServiceConfiguration
     {
         services.AddSingleton<IChargingNetwork, ChargingNetwork>();
         services.AddTransient<TimeProvider>(_ => TimeProvider.System);
-        services.AddSingleton<Schedule>();
+        services.AddSingleton<ISchedule, Schedule>();
         services.AddSingleton<IChargingManager, ChargingManager>();
         services.AddHostedService<Worker>();
 

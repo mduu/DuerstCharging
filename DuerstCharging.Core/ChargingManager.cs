@@ -9,7 +9,7 @@ namespace DuerstCharging.Core;
 public class ChargingManager(
     ILogger<ChargingManager> logger,
     IOptionsMonitor<ChargingOptions> options,
-    Schedule schedule,
+    ISchedule schedule,
     IChargingNetwork chargingNetwork) : IChargingManager
 {
     private bool lastWasProhibited;

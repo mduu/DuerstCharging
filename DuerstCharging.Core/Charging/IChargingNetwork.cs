@@ -4,5 +4,5 @@ namespace DuerstCharging.Core.Charging;
 
 public interface IChargingNetwork
 {
-    Task<ImmutableArray<ChargingStation>> GetAllChargingStations();
+    Task<ImmutableArray<IChargingStation>> GetAllChargingStations();
 }

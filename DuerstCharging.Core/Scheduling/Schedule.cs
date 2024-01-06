@@ -5,7 +5,7 @@ namespace DuerstCharging.Core.Scheduling;
 
 public class Schedule(
     TimeProvider timeProvider,
-    IOptionsMonitor<ChargingOptions> options)
+    IOptionsMonitor<ChargingOptions> options) : ISchedule
 {
     public bool GetIsChargingProhibited()
     {

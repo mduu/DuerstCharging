@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 
 namespace DuerstCharging.Core.Charging;
 
-public class ChargingStation
+public class ChargingStation : IChargingStation
 {
     private const int TheUnitIdentifier = 255;
     private readonly ILogger<ChargingStation> logger;
@@ -24,21 +24,6 @@ public class ChargingStation
     public CableState CableState { get; private set; }
     public uint ErrorCode { get; private set; }
     public bool IsEnabled => ChargingState != ChargingState.Suspended;
-
-    public static async Task<ChargingStation> Create(
-        IServiceProvider serviceProvider,
-        IPAddress ipAddress)
-    {
-        var chargingStation = new ChargingStation(
-            serviceProvider.GetRequiredService<ILogger<ChargingStation>>(),
-            ipAddress);
-
-        await chargingStation.RetrieveInformation();
-
-        return chargingStation;
-    }
-
-    public override string ToString() => $"{IpAddress}";
 
     public async Task RetrieveInformation()
     {
@@ -89,6 +74,21 @@ public class ChargingStation
                 cancellationToken);
         }
     }
+
+    public static async Task<ChargingStation> Create(
+        IServiceProvider serviceProvider,
+        IPAddress ipAddress)
+    {
+        var chargingStation = new ChargingStation(
+            serviceProvider.GetRequiredService<ILogger<ChargingStation>>(),
+            ipAddress);
+
+        await chargingStation.RetrieveInformation();
+
+        return chargingStation;
+    }
+
+    public override string ToString() => $"{IpAddress}";
 
     private ModbusTcpClient GetConnectedClient()
     {
