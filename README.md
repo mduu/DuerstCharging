@@ -134,5 +134,6 @@ on the wallbox IP address.
 
 ## Links:
 
+- [Modbus TCP programmers guide](https://www.keba.com/download/x/dea7ae6b84/kecontactp30modbustcp_pgen.pdf)
 - [Deploy .NET apps on ARM single-board computers](https://learn.microsoft.com/en-us/dotnet/iot/deployment)
 - [How to run a Linux program at startup](https://timleland.com/how-to-run-a-linux-program-on-startup/)
