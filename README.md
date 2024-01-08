@@ -45,7 +45,7 @@ Build dependencies:
 Tested:
 
 - The production system I use is a Raspberry Pi 3b (ARM 32bit) with latest *Raspberry Pi OS* (Debian-based)
-- For development it runs on Mac (Apple silivon)
+- For development it runs on Mac (Apple Silicon)
 
 ## Configuration
 
