@@ -9,6 +9,8 @@ public interface IChargingStation
     CableState CableState { get; }
     uint ErrorCode { get; }
     bool IsEnabled { get; }
+    uint FailsafeCurrentSetting { get; }
+    uint FailsafeTimeoutSetting { get; }
 
     Task RetrieveInformation();
     Task SetEnabled(bool isEnabled, bool simulateOnly, CancellationToken cancellationToken);

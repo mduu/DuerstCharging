@@ -19,12 +19,14 @@ public class ChargingManager(
         foreach (var chargingStation in await chargingNetwork.GetAllChargingStations())
         {
             logger.LogInformation(
-                "- Charging-Station {ChargingStation}: ChargingState={ChargingState}, Cable-State={CableState}, Error-Code={ErrorCode}, IsEnabled={IsEnabled}",
+                "- Charging-Station {ChargingStation}: ChargingState={ChargingState}, Cable-State={CableState}, Errorcode={ErrorCode}, IsEnabled={IsEnabled}, FailsafeCurrent={FailsafeCurrent}, FailsafeTimeout={FailsafeTimeout}",
                 chargingStation,
                 chargingStation.ChargingState,
                 chargingStation.CableState,
                 chargingStation.ErrorCode,
-                chargingStation.IsEnabled);
+                chargingStation.IsEnabled,
+                chargingStation.FailsafeCurrentSetting,
+                chargingStation.FailsafeTimeoutSetting);
         }
     }
 

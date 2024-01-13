@@ -23,6 +23,9 @@ public class ChargingStation : IChargingStation
     public ChargingState ChargingState { get; private set; }
     public CableState CableState { get; private set; }
     public uint ErrorCode { get; private set; }
+    public uint FailsafeCurrentSetting { get; private set; }
+    public uint FailsafeTimeoutSetting { get; private set; }
+    
     public bool IsEnabled => ChargingState != ChargingState.Suspended;
 
     public async Task RetrieveInformation()
@@ -49,6 +52,8 @@ public class ChargingStation : IChargingStation
         ChargingState = (ChargingState)await GetUint32Register(client, 1000);
         CableState = (CableState)await GetUint32Register(client, 1004);
         ErrorCode = await GetUint32Register(client, 1006);
+        FailsafeCurrentSetting = await GetUint32Register(client, 1600);
+        FailsafeTimeoutSetting = await GetUint32Register(client, 1602);
 
         lastRetrieve = DateTimeOffset.UtcNow;
     }
