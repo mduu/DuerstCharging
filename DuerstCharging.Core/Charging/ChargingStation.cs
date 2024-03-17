@@ -2,6 +2,8 @@
 using FluentModbus;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Polly;
+using Polly.Retry;
 
 namespace DuerstCharging.Core.Charging;
 
@@ -9,7 +11,11 @@ public class ChargingStation : IChargingStation
 {
     private const int TheUnitIdentifier = 255;
     private readonly ILogger<ChargingStation> logger;
-    private DateTimeOffset lastRetrieve = DateTimeOffset.MinValue;
+    private DateTimeOffset lastSuccessfulRetrieve = DateTimeOffset.MinValue;
+
+    private readonly ResiliencePipeline<ModbusTcpClient> modbusConnectionPipeline;
+    private readonly ResiliencePipeline<Memory<uint>> readResiliencePipeline;
+    private readonly ResiliencePipeline writeResiliencePipeline;
 
     private ChargingStation(
         ILogger<ChargingStation> logger,
@@ -17,6 +23,69 @@ public class ChargingStation : IChargingStation
     {
         this.logger = logger;
         IpAddress = ipAddress;
+
+        modbusConnectionPipeline = new ResiliencePipelineBuilder<ModbusTcpClient>()
+            .AddRetry(new RetryStrategyOptions<ModbusTcpClient>
+            {
+                Delay = TimeSpan.FromSeconds(1),
+                BackoffType = DelayBackoffType.Exponential,
+                MaxRetryAttempts = 7,
+                MaxDelay = TimeSpan.FromMinutes(15),
+                Name = "Retry Modbus Connection",
+                OnRetry = args
+                    =>
+                {
+                    logger.LogInformation(
+                        "Retry #{RetryAttemptNumber} connecting Modbus (Duration: {Duration} to station {Station}",
+                        args.AttemptNumber,
+                        args.Duration,
+                        this);
+                    return default;
+                },
+            })
+            .Build();
+
+        readResiliencePipeline = new ResiliencePipelineBuilder<Memory<uint>>()
+            .AddRetry(new RetryStrategyOptions<Memory<uint>>
+            {
+                Delay = TimeSpan.FromMilliseconds(200),
+                BackoffType = DelayBackoffType.Exponential,
+                MaxRetryAttempts = 5,
+                MaxDelay = TimeSpan.FromMinutes(5),
+                Name = "Retry read from modbus",
+                OnRetry = args
+                    =>
+                {
+                    logger.LogInformation(
+                        "Retry #{RetryAttemptNumber} reading from modbus (Duration: {Duration} for station {Station}",
+                        args.AttemptNumber,
+                        args.Duration,
+                        this);
+                    return default;
+                },
+            })
+            .Build();
+
+        writeResiliencePipeline = new ResiliencePipelineBuilder()
+            .AddRetry(new RetryStrategyOptions
+            {
+                Delay = TimeSpan.FromMilliseconds(500),
+                BackoffType = DelayBackoffType.Exponential,
+                MaxRetryAttempts = 5,
+                MaxDelay = TimeSpan.FromMinutes(5),
+                Name = "Retry write to modbus",
+                OnRetry = args
+                    =>
+                {
+                    logger.LogInformation(
+                        "Retry #{RetryAttemptNumber} writing to modbus (Duration: {Duration} for station {Station}",
+                        args.AttemptNumber,
+                        args.Duration,
+                        this);
+                    return default;
+                },
+            })
+            .Build();
     }
 
     public IPAddress IpAddress { get; }
@@ -25,58 +94,88 @@ public class ChargingStation : IChargingStation
     public uint ErrorCode { get; private set; }
     public uint FailsafeCurrentSetting { get; private set; }
     public uint FailsafeTimeoutSetting { get; private set; }
-    
+
     public bool IsEnabled => ChargingState != ChargingState.Suspended;
 
     public async Task RetrieveInformation()
     {
-        if (lastRetrieve.AddMilliseconds(500) > DateTimeOffset.UtcNow)
+        if (lastSuccessfulRetrieve.AddMilliseconds(500) > DateTimeOffset.UtcNow)
         {
             // NOTE: Manual recommends to retrieve information not more then every 500ms
+            logger.LogInformation(
+                "Throttle information retrieval from station {Station} because last time as less then 500ms ago ({LastRetrieveTime:G}) and its recommended to not retrieve more often then every 500ms",
+                this,
+                lastSuccessfulRetrieve);
             return;
         }
 
-        using var client = GetConnectedClient();
-
-        if (client is null)
+        try
         {
-            throw new Exception($"Error connecting to the charging station on IP {IpAddress}");
+            using var client = GetConnectedClient();
+
+            async Task<uint> GetUint32Register(ModbusTcpClient modbusClient, int startingAddress)
+            {
+                var registerValue = await readResiliencePipeline
+                    .ExecuteAsync(async ct =>
+                        await modbusClient.ReadHoldingRegistersAsync<uint>(
+                            TheUnitIdentifier,
+                            startingAddress,
+                            1, ct));
+
+                return registerValue.Span[0];
+            }
+
+            ChargingState = (ChargingState)await GetUint32Register(client, 1000);
+            CableState = (CableState)await GetUint32Register(client, 1004);
+            ErrorCode = await GetUint32Register(client, 1006);
+            FailsafeCurrentSetting = await GetUint32Register(client, 1600);
+            FailsafeTimeoutSetting = await GetUint32Register(client, 1602);
+
+            lastSuccessfulRetrieve = DateTimeOffset.UtcNow;
         }
-
-        async Task<uint> GetUint32Register(ModbusTcpClient modbusClient, int startingAddress) =>
-            (await modbusClient.ReadHoldingRegistersAsync<uint>(
-                TheUnitIdentifier,
-                startingAddress,
-                1)).Span[0];
-
-        ChargingState = (ChargingState)await GetUint32Register(client, 1000);
-        CableState = (CableState)await GetUint32Register(client, 1004);
-        ErrorCode = await GetUint32Register(client, 1006);
-        FailsafeCurrentSetting = await GetUint32Register(client, 1600);
-        FailsafeTimeoutSetting = await GetUint32Register(client, 1602);
-
-        lastRetrieve = DateTimeOffset.UtcNow;
+        catch (Exception ex)
+        {
+            logger.LogError(
+                ex,
+                "Error retrieving information from station {Station} over modbus",
+                this);
+        }
     }
 
     public async Task SetEnabled(bool isEnabled, bool simulateOnly, CancellationToken cancellationToken)
     {
-        using var client = GetConnectedClient();
-
-        var value = (ushort)(isEnabled ? 1 : 0);
-
-        if (simulateOnly)
+        try
         {
-            logger.LogInformation("Simulate setting enable={Value} of charging state {IpAddress}",
-                value,
-                IpAddress);
+            using var client = GetConnectedClient();
+
+            var value = (ushort)(isEnabled ? 1 : 0);
+
+            if (simulateOnly)
+            {
+                logger.LogInformation("Simulate setting enable={Value} of charging state {IpAddress}",
+                    value,
+                    IpAddress);
+            }
+            else
+            {
+                await writeResiliencePipeline.ExecuteAsync(async ct =>
+                {
+                    await client.WriteSingleRegisterAsync(
+                        TheUnitIdentifier,
+                        5014,
+                        value,
+                        ct);
+                }, cancellationToken);
+            }
         }
-        else
+        catch (Exception ex)
         {
-            await client.WriteSingleRegisterAsync(
-                TheUnitIdentifier,
-                5014,
-                value,
-                cancellationToken);
+            logger.LogError(
+                ex,
+                "Error setting enabled state of the charging-station {Station} to {EnabledState} (simulate-only={SimulationMode})",
+                this,
+                isEnabled,
+                simulateOnly ? "true" : "false");
         }
     }
 
@@ -95,11 +194,13 @@ public class ChargingStation : IChargingStation
 
     public override string ToString() => $"{IpAddress}";
 
-    private ModbusTcpClient GetConnectedClient()
-    {
-        var client = new ModbusTcpClient();
-        client.Connect(IpAddress, ModbusEndianness.BigEndian);
+    private ModbusTcpClient GetConnectedClient() =>
+        modbusConnectionPipeline
+            .Execute(() =>
+            {
+                var client = new ModbusTcpClient();
+                client.Connect(IpAddress, ModbusEndianness.BigEndian);
 
-        return client;
-    }
+                return client;
+            });
 }
