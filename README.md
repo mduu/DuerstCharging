@@ -116,6 +116,12 @@ with environment set to *Production*. On my Raspberry Pi I registered this as sy
 [here](https://timleland.com/how-to-run-a-linux-program-on-startup/) and the service configuration I've added to
 *Deploy/duerstcharging.service*.
 
+### Update .Net on Raspbery PI OS (Arm)
+Fire the following command on your Raspi:
+```
+curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --channel LTS
+```
+
 ## Logs / Monitoring
 
 The software will write logs to logfiles in ./logs/ (rolling logfile per month) and for convenience to the
