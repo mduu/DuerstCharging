@@ -29,7 +29,7 @@ public class ChargingStation : IChargingStation
             {
                 Delay = TimeSpan.FromSeconds(1),
                 BackoffType = DelayBackoffType.Exponential,
-                MaxRetryAttempts = 7,
+                MaxRetryAttempts = 10,
                 MaxDelay = TimeSpan.FromMinutes(15),
                 Name = "Retry Modbus Connection",
                 OnRetry = args
@@ -97,7 +97,7 @@ public class ChargingStation : IChargingStation
 
     public bool IsEnabled => ChargingState != ChargingState.Suspended;
 
-    public async Task RetrieveInformation()
+    public async Task<bool> RetrieveInformation()
     {
         if (lastSuccessfulRetrieve.AddMilliseconds(500) > DateTimeOffset.UtcNow)
         {
@@ -106,7 +106,8 @@ public class ChargingStation : IChargingStation
                 "Throttle information retrieval from station {Station} because last time as less then 500ms ago ({LastRetrieveTime:G}) and its recommended to not retrieve more often then every 500ms",
                 this,
                 lastSuccessfulRetrieve);
-            return;
+
+            return true;
         }
 
         try
@@ -132,6 +133,8 @@ public class ChargingStation : IChargingStation
             FailsafeTimeoutSetting = await GetUint32Register(client, 1602);
 
             lastSuccessfulRetrieve = DateTimeOffset.UtcNow;
+
+            return true;
         }
         catch (Exception ex)
         {
@@ -139,10 +142,12 @@ public class ChargingStation : IChargingStation
                 ex,
                 "Error retrieving information from station {Station} over modbus",
                 this);
+
+            return false;
         }
     }
 
-    public async Task SetEnabled(bool isEnabled, bool simulateOnly, CancellationToken cancellationToken)
+    public async Task<bool> SetEnabled(bool isEnabled, bool simulateOnly, CancellationToken cancellationToken)
     {
         try
         {
@@ -167,6 +172,8 @@ public class ChargingStation : IChargingStation
                         ct);
                 }, cancellationToken);
             }
+
+            return true;
         }
         catch (Exception ex)
         {
@@ -176,6 +183,8 @@ public class ChargingStation : IChargingStation
                 this,
                 isEnabled,
                 simulateOnly ? "true" : "false");
+
+            return false;
         }
     }
 
@@ -200,6 +209,8 @@ public class ChargingStation : IChargingStation
             {
                 var client = new ModbusTcpClient();
                 client.Connect(IpAddress, ModbusEndianness.BigEndian);
+
+                logger.LogDebug("Connected to {Station}", IpAddress);
 
                 return client;
             });

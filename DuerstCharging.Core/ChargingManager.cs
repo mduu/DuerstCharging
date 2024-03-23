@@ -71,8 +71,10 @@ public class ChargingManager(
         var enabledOrDisabled = isProhibited ? "disabled" : "enabled";
 
         logger.LogInformation(
-            "Update charging stations to charging is {EnabledDisabled}",
+            "Updating charging stations to charging is {EnabledDisabled}",
             enabledOrDisabled);
+
+        var allStationsUpdatedSuccessful = true;
 
         foreach (var chargingStation in await chargingNetwork.GetAllChargingStations())
         {
@@ -80,13 +82,21 @@ public class ChargingManager(
                 "Set enabled state for charging station {ChargingStation}",
                 chargingStation);
 
-            await chargingStation.SetEnabled(!isProhibited, options.CurrentValue.SimulationOnly, cancellationToken);
+            var setStateSuccessful = await chargingStation.SetEnabled(!isProhibited, options.CurrentValue.SimulationOnly, cancellationToken);
+            if (!setStateSuccessful)
+            {
+                allStationsUpdatedSuccessful = false;
+            }
         }
-
-        lastWasProhibited = isProhibited;
-
-        logger.LogInformation(
-            "All charging stations set to {EnabledDisabled}",
-            enabledOrDisabled);
+        
+        if (allStationsUpdatedSuccessful)
+        {
+            lastWasProhibited = isProhibited;
+            logger.LogInformation("All charging stations set to {EnabledDisabled}", enabledOrDisabled);
+        }
+        else
+        {
+            logger.LogWarning("Not all charging stations could be {EnabledDisabled}", enabledOrDisabled);
+        }
     }
 }

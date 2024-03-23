@@ -12,6 +12,6 @@ public interface IChargingStation
     uint FailsafeCurrentSetting { get; }
     uint FailsafeTimeoutSetting { get; }
 
-    Task RetrieveInformation();
-    Task SetEnabled(bool isEnabled, bool simulateOnly, CancellationToken cancellationToken);
+    Task<bool> RetrieveInformation();
+    Task<bool> SetEnabled(bool isEnabled, bool simulateOnly, CancellationToken cancellationToken);
 }
