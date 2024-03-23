@@ -79,8 +79,9 @@ public class ChargingManager(
         foreach (var chargingStation in await chargingNetwork.GetAllChargingStations())
         {
             logger.LogInformation(
-                "Set enabled state for charging station {ChargingStation}",
-                chargingStation);
+                "Set enabled state for charging station {ChargingStation} to {EnabledDisabled}",
+                chargingStation,
+                enabledOrDisabled);
 
             var setStateSuccessful = await chargingStation.SetEnabled(!isProhibited, options.CurrentValue.SimulationOnly, cancellationToken);
             if (!setStateSuccessful)
