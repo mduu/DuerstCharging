@@ -25,6 +25,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GitHub", "GitHub", "{B9A66E
 		.github\workflows\dotnet.yml = .github\workflows\dotnet.yml
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DuerstCharging.Web", "DuerstCharging.Web\DuerstCharging.Web.csproj", "{FAEEA427-A478-4A64-9B31-1BE058E1D064}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +45,10 @@ Global
 		{B91603AF-B946-46C9-95BA-182E48E49BCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B91603AF-B946-46C9-95BA-182E48E49BCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B91603AF-B946-46C9-95BA-182E48E49BCC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FAEEA427-A478-4A64-9B31-1BE058E1D064}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FAEEA427-A478-4A64-9B31-1BE058E1D064}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FAEEA427-A478-4A64-9B31-1BE058E1D064}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FAEEA427-A478-4A64-9B31-1BE058E1D064}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{B9A66EDD-A535-475B-8DD2-D92B0893D8D7} = {9C9D68A9-83FC-4F83-AEE0-8DEBE53C0E63}

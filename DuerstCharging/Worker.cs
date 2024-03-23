@@ -1,6 +1,4 @@
 using DuerstCharging.Core;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
 namespace DuerstCharging;
 

@@ -1,0 +1,178 @@
+2024-03-23 11:34:33.981 +01:00 [INF] User profile is available. Using '/Users/marc/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2024-03-23 11:34:34.031 +01:00 [INF] Duerst Charging is running
+2024-03-23 11:34:34.032 +01:00 [INF] EnvironmentName=Development
+2024-03-23 11:34:34.042 +01:00 [INF] Starting configuration: Simulation-only=true, ChargingStationIpAddress=192.168.1.12, # schedule entries=6
+2024-03-23 11:34:34.188 +01:00 [INF] - Charging-Station 192.168.1.12: ChargingState="UnpluggedOrLocked", Cable-State="CablePluggedToChargingStationAndLocked", Errorcode=0, IsEnabled=true, FailsafeCurrent=0, FailsafeTimeout=0
+2024-03-23 11:34:34.190 +01:00 [INF] Starting ChargingManager...
+2024-03-23 11:34:34.191 +01:00 [INF] Charging is disabled
+2024-03-23 11:34:34.192 +01:00 [INF] Updating charging stations to charging is disabled
+2024-03-23 11:34:34.219 +01:00 [INF] Now listening on: http://localhost:5000
+2024-03-23 11:34:34.221 +01:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-03-23 11:34:34.221 +01:00 [INF] Hosting environment: Development
+2024-03-23 11:34:34.221 +01:00 [INF] Content root path: /Users/marc/Dev/Git/DuerstCharging/DuerstCharging
+2024-03-23 11:34:34.230 +01:00 [INF] Set enabled state for charging station 192.168.1.12 to disabled
+2024-03-23 11:34:34.235 +01:00 [INF] Simulate setting enable=0 of charging state 192.168.1.12
+2024-03-23 11:34:34.236 +01:00 [INF] All charging stations set to disabled
+2024-03-23 11:34:34.236 +01:00 [INF] ChargingManager started
+2024-03-23 11:35:12.196 +01:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/ - null null
+2024-03-23 11:35:12.206 +01:00 [WRN] Failed to determine the https port for redirect.
+2024-03-23 11:35:12.207 +01:00 [INF] Executing endpoint '/ (/)'
+2024-03-23 11:35:12.250 +01:00 [INF] Executed endpoint '/ (/)'
+2024-03-23 11:35:12.251 +01:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/ - 200 null text/html; charset=utf-8 56.5498ms
+2024-03-23 11:35:12.256 +01:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/bootstrap/bootstrap.min.css - null null
+2024-03-23 11:35:12.256 +01:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/app.css - null null
+2024-03-23 11:35:12.256 +01:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/DuerstCharging.Web.styles.css - null null
+2024-03-23 11:35:12.257 +01:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/_framework/blazor.web.js - null null
+2024-03-23 11:35:12.257 +01:00 [INF] Executing endpoint 'Blazor web static files'
+2024-03-23 11:35:12.258 +01:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/DuerstCharging.Web.styles.css - 404 0 null 1.2789ms
+2024-03-23 11:35:12.259 +01:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5000/DuerstCharging.Web.styles.css, Response status code: 404
+2024-03-23 11:35:12.269 +01:00 [INF] Sending file. Request path: '/bootstrap/bootstrap.min.css'. Physical path: '/Users/marc/Dev/Git/DuerstCharging/DuerstCharging/wwwroot/bootstrap/bootstrap.min.css'
+2024-03-23 11:35:12.269 +01:00 [INF] Sending file. Request path: '/app.css'. Physical path: '/Users/marc/Dev/Git/DuerstCharging/DuerstCharging/wwwroot/app.css'
+2024-03-23 11:35:12.269 +01:00 [INF] Sending file. Request path: '/_framework/blazor.web.js'. Physical path: 'N/A'
+2024-03-23 11:35:12.270 +01:00 [INF] Executed endpoint 'Blazor web static files'
+2024-03-23 11:35:12.270 +01:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/bootstrap/bootstrap.min.css - 200 162720 text/css 14.6767ms
+2024-03-23 11:35:12.271 +01:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/_framework/blazor.web.js - 200 186744 text/javascript 13.6109ms
+2024-03-23 11:35:12.270 +01:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/app.css - 200 2540 text/css 14.3567ms
+2024-03-23 11:35:12.301 +01:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/favicon.png - null null
+2024-03-23 11:35:12.302 +01:00 [INF] Sending file. Request path: '/favicon.png'. Physical path: '/Users/marc/Dev/Git/DuerstCharging/DuerstCharging/wwwroot/favicon.png'
+2024-03-23 11:35:12.303 +01:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/favicon.png - 200 1148 image/png 1.7133ms
+2024-03-23 11:35:15.754 +01:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/ - null null
+2024-03-23 11:35:15.755 +01:00 [INF] Executing endpoint '/ (/)'
+2024-03-23 11:35:15.771 +01:00 [INF] Executed endpoint '/ (/)'
+2024-03-23 11:35:15.772 +01:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/ - 200 null text/html; charset=utf-8 18.276ms
+2024-03-23 11:35:15.777 +01:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/DuerstCharging.Web.styles.css - null null
+2024-03-23 11:35:15.778 +01:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/DuerstCharging.Web.styles.css - 404 0 null 0.7436ms
+2024-03-23 11:35:15.778 +01:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5000/DuerstCharging.Web.styles.css, Response status code: 404
+2024-03-23 11:35:15.780 +01:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/_framework/blazor.web.js - null null
+2024-03-23 11:35:15.782 +01:00 [INF] Executing endpoint 'Blazor web static files'
+2024-03-23 11:35:15.783 +01:00 [INF] The file /_framework/blazor.web.js was not modified
+2024-03-23 11:35:15.784 +01:00 [INF] Executed endpoint 'Blazor web static files'
+2024-03-23 11:35:15.784 +01:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/_framework/blazor.web.js - 304 null text/javascript 3.3775ms
+2024-03-23 11:35:20.546 +01:00 [INF] Application is shutting down...
+2024-03-23 11:35:21.312 +01:00 [INF] Shutting down charging-manager ...
+2024-03-23 11:35:21.313 +01:00 [INF] Shutting down ChargingManager...
+2024-03-23 11:35:21.347 +01:00 [INF] Simulate setting enable=1 of charging state 192.168.1.12
+2024-03-23 11:35:21.348 +01:00 [INF] ChargingManager shut down
+2024-03-23 11:35:21.348 +01:00 [INF] Worker is shut down
+2024-03-23 11:37:23.332 +01:00 [INF] User profile is available. Using '/Users/marc/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2024-03-23 11:37:23.386 +01:00 [INF] Duerst Charging is running
+2024-03-23 11:37:23.386 +01:00 [INF] EnvironmentName=Development
+2024-03-23 11:37:23.396 +01:00 [INF] Starting configuration: Simulation-only=true, ChargingStationIpAddress=192.168.1.12, # schedule entries=6
+2024-03-23 11:37:23.536 +01:00 [INF] - Charging-Station 192.168.1.12: ChargingState="UnpluggedOrLocked", Cable-State="CablePluggedToChargingStationAndLocked", Errorcode=0, IsEnabled=true, FailsafeCurrent=0, FailsafeTimeout=0
+2024-03-23 11:37:23.537 +01:00 [INF] Starting ChargingManager...
+2024-03-23 11:37:23.540 +01:00 [INF] Charging is disabled
+2024-03-23 11:37:23.541 +01:00 [INF] Updating charging stations to charging is disabled
+2024-03-23 11:37:23.600 +01:00 [INF] Set enabled state for charging station 192.168.1.12 to disabled
+2024-03-23 11:37:23.603 +01:00 [INF] Now listening on: http://localhost:5000
+2024-03-23 11:37:23.605 +01:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-03-23 11:37:23.605 +01:00 [INF] Simulate setting enable=0 of charging state 192.168.1.12
+2024-03-23 11:37:23.605 +01:00 [INF] Hosting environment: Development
+2024-03-23 11:37:23.607 +01:00 [INF] All charging stations set to disabled
+2024-03-23 11:37:23.607 +01:00 [INF] Content root path: /Users/marc/Dev/Git/DuerstCharging/DuerstCharging
+2024-03-23 11:37:23.607 +01:00 [INF] ChargingManager started
+2024-03-23 11:40:54.949 +01:00 [INF] User profile is available. Using '/Users/marc/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2024-03-23 11:40:54.986 +01:00 [INF] Duerst Charging is running
+2024-03-23 11:40:54.987 +01:00 [INF] EnvironmentName=Development
+2024-03-23 11:40:54.995 +01:00 [INF] Starting configuration: Simulation-only=true, ChargingStationIpAddress=192.168.1.12, # schedule entries=6
+2024-03-23 11:40:55.077 +01:00 [INF] - Charging-Station 192.168.1.12: ChargingState="UnpluggedOrLocked", Cable-State="CablePluggedToChargingStationAndLocked", Errorcode=0, IsEnabled=true, FailsafeCurrent=0, FailsafeTimeout=0
+2024-03-23 11:40:55.078 +01:00 [INF] Starting ChargingManager...
+2024-03-23 11:40:55.079 +01:00 [INF] Charging is disabled
+2024-03-23 11:40:55.080 +01:00 [INF] Updating charging stations to charging is disabled
+2024-03-23 11:40:55.086 +01:00 [INF] Now listening on: http://localhost:5000
+2024-03-23 11:40:55.087 +01:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-03-23 11:40:55.087 +01:00 [INF] Hosting environment: Development
+2024-03-23 11:40:55.087 +01:00 [INF] Content root path: /Users/marc/Dev/Git/DuerstCharging/DuerstCharging
+2024-03-23 11:40:55.113 +01:00 [INF] Set enabled state for charging station 192.168.1.12 to disabled
+2024-03-23 11:40:55.117 +01:00 [INF] Simulate setting enable=0 of charging state 192.168.1.12
+2024-03-23 11:40:55.117 +01:00 [INF] All charging stations set to disabled
+2024-03-23 11:40:55.117 +01:00 [INF] ChargingManager started
+2024-03-23 11:41:01.475 +01:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/ - null null
+2024-03-23 11:41:01.489 +01:00 [WRN] Failed to determine the https port for redirect.
+2024-03-23 11:41:01.489 +01:00 [INF] Executing endpoint '/ (/)'
+2024-03-23 11:41:01.534 +01:00 [INF] Executed endpoint '/ (/)'
+2024-03-23 11:41:01.536 +01:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/ - 200 null text/html; charset=utf-8 62.2741ms
+2024-03-23 11:41:01.544 +01:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/DuerstCharging.Web.styles.css - null null
+2024-03-23 11:41:01.545 +01:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/DuerstCharging.Web.styles.css - 404 0 null 0.9047ms
+2024-03-23 11:41:01.546 +01:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5000/DuerstCharging.Web.styles.css, Response status code: 404
+2024-03-23 11:41:01.548 +01:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/_framework/blazor.web.js - null null
+2024-03-23 11:41:01.548 +01:00 [INF] Executing endpoint 'Blazor web static files'
+2024-03-23 11:41:01.549 +01:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/bootstrap/bootstrap.min.css - null null
+2024-03-23 11:41:01.550 +01:00 [INF] The file /_framework/blazor.web.js was not modified
+2024-03-23 11:41:01.550 +01:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/app.css - null null
+2024-03-23 11:41:01.550 +01:00 [INF] Executed endpoint 'Blazor web static files'
+2024-03-23 11:41:01.550 +01:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/_framework/blazor.web.js - 304 null text/javascript 2.2345ms
+2024-03-23 11:41:01.550 +01:00 [INF] The file /bootstrap/bootstrap.min.css was not modified
+2024-03-23 11:41:01.550 +01:00 [INF] The file /app.css was not modified
+2024-03-23 11:41:01.551 +01:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/bootstrap/bootstrap.min.css - 304 null text/css 1.0805ms
+2024-03-23 11:41:01.551 +01:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/app.css - 304 null text/css 1.3102ms
+2024-03-23 11:41:01.571 +01:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/bootstrap/bootstrap.min.css.map - null null
+2024-03-23 11:41:01.581 +01:00 [INF] Sending file. Request path: '/bootstrap/bootstrap.min.css.map'. Physical path: '/Users/marc/Dev/Git/DuerstCharging/DuerstCharging/wwwroot/bootstrap/bootstrap.min.css.map'
+2024-03-23 11:41:01.582 +01:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/bootstrap/bootstrap.min.css.map - 200 449111 text/plain 11.3498ms
+2024-03-23 11:43:01.347 +01:00 [INF] Application is shutting down...
+2024-03-23 11:43:02.260 +01:00 [INF] Shutting down charging-manager ...
+2024-03-23 11:43:02.263 +01:00 [INF] Shutting down ChargingManager...
+2024-03-23 11:43:02.302 +01:00 [INF] Simulate setting enable=1 of charging state 192.168.1.12
+2024-03-23 11:43:02.302 +01:00 [INF] ChargingManager shut down
+2024-03-23 11:43:02.302 +01:00 [INF] Worker is shut down
+2024-03-23 11:43:03.703 +01:00 [INF] User profile is available. Using '/Users/marc/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2024-03-23 11:43:03.743 +01:00 [INF] Duerst Charging is running
+2024-03-23 11:43:03.743 +01:00 [INF] EnvironmentName=Development
+2024-03-23 11:43:03.752 +01:00 [INF] Starting configuration: Simulation-only=true, ChargingStationIpAddress=192.168.1.12, # schedule entries=6
+2024-03-23 11:43:03.836 +01:00 [INF] - Charging-Station 192.168.1.12: ChargingState="UnpluggedOrLocked", Cable-State="CablePluggedToChargingStationAndLocked", Errorcode=0, IsEnabled=true, FailsafeCurrent=0, FailsafeTimeout=0
+2024-03-23 11:43:03.837 +01:00 [INF] Starting ChargingManager...
+2024-03-23 11:43:03.838 +01:00 [INF] Charging is disabled
+2024-03-23 11:43:03.839 +01:00 [INF] Updating charging stations to charging is disabled
+2024-03-23 11:43:03.844 +01:00 [INF] Now listening on: http://localhost:5000
+2024-03-23 11:43:03.845 +01:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-03-23 11:43:03.845 +01:00 [INF] Hosting environment: Development
+2024-03-23 11:43:03.845 +01:00 [INF] Content root path: /Users/marc/Dev/Git/DuerstCharging/DuerstCharging
+2024-03-23 11:43:03.875 +01:00 [INF] Set enabled state for charging station 192.168.1.12 to disabled
+2024-03-23 11:43:03.881 +01:00 [INF] Simulate setting enable=0 of charging state 192.168.1.12
+2024-03-23 11:43:03.881 +01:00 [INF] All charging stations set to disabled
+2024-03-23 11:43:03.881 +01:00 [INF] ChargingManager started
+2024-03-23 11:43:06.418 +01:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/ - null null
+2024-03-23 11:43:06.432 +01:00 [WRN] Failed to determine the https port for redirect.
+2024-03-23 11:43:06.433 +01:00 [INF] Executing endpoint '/ (/)'
+2024-03-23 11:43:06.479 +01:00 [INF] Executed endpoint '/ (/)'
+2024-03-23 11:43:06.481 +01:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/ - 200 null text/html; charset=utf-8 64.7682ms
+2024-03-23 11:43:06.490 +01:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/DuerstCharging.styles.css - null null
+2024-03-23 11:43:06.494 +01:00 [INF] Sending file. Request path: '/DuerstCharging.styles.css'. Physical path: '/Users/marc/Dev/Git/DuerstCharging/DuerstCharging/obj/Debug/net8.0/scopedcss/bundle/DuerstCharging.styles.css'
+2024-03-23 11:43:06.495 +01:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/DuerstCharging.styles.css - 200 5708 text/css 4.6475ms
+2024-03-23 11:43:06.495 +01:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/app.css - null null
+2024-03-23 11:43:06.495 +01:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/bootstrap/bootstrap.min.css - null null
+2024-03-23 11:43:06.496 +01:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/_framework/blazor.web.js - null null
+2024-03-23 11:43:06.497 +01:00 [INF] Executing endpoint 'Blazor web static files'
+2024-03-23 11:43:06.497 +01:00 [INF] The file /app.css was not modified
+2024-03-23 11:43:06.497 +01:00 [INF] The file /bootstrap/bootstrap.min.css was not modified
+2024-03-23 11:43:06.497 +01:00 [INF] The file /_framework/blazor.web.js was not modified
+2024-03-23 11:43:06.497 +01:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/app.css - 304 null text/css 2.086ms
+2024-03-23 11:43:06.497 +01:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/bootstrap/bootstrap.min.css - 304 null text/css 2.068ms
+2024-03-23 11:43:06.498 +01:00 [INF] Executed endpoint 'Blazor web static files'
+2024-03-23 11:43:06.498 +01:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/_framework/blazor.web.js - 304 null text/javascript 2.6287ms
+2024-03-23 11:43:06.512 +01:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/bootstrap/bootstrap.min.css.map - null null
+2024-03-23 11:43:06.512 +01:00 [INF] The file /bootstrap/bootstrap.min.css.map was not modified
+2024-03-23 11:43:06.512 +01:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/bootstrap/bootstrap.min.css.map - 304 null text/plain 0.4233ms
+2024-03-23 11:43:09.170 +01:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/counter - null null
+2024-03-23 11:43:09.172 +01:00 [INF] Executing endpoint '/counter (/counter)'
+2024-03-23 11:43:09.248 +01:00 [INF] Executed endpoint '/counter (/counter)'
+2024-03-23 11:43:09.248 +01:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/counter - 200 null text/html; charset=utf-8 78.1267ms
+2024-03-23 11:43:09.258 +01:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/_blazor/initializers - null null
+2024-03-23 11:43:09.258 +01:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2024-03-23 11:43:09.261 +01:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2024-03-23 11:43:09.261 +01:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/_blazor/initializers - 200 null application/json; charset=utf-8 2.8509ms
+2024-03-23 11:43:09.266 +01:00 [INF] Request starting HTTP/1.1 POST http://localhost:5000/_blazor/negotiate?negotiateVersion=1 - null 0
+2024-03-23 11:43:09.266 +01:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2024-03-23 11:43:09.269 +01:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2024-03-23 11:43:09.269 +01:00 [INF] Request finished HTTP/1.1 POST http://localhost:5000/_blazor/negotiate?negotiateVersion=1 - 200 316 application/json 3.4574ms
+2024-03-23 11:43:09.272 +01:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/_blazor?id=Am5K4OJNL-tSYKoAzA3WHw - null null
+2024-03-23 11:43:09.272 +01:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2024-03-23 11:43:11.445 +01:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/ - null null
+2024-03-23 11:43:11.446 +01:00 [INF] Executing endpoint '/ (/)'
+2024-03-23 11:43:11.454 +01:00 [INF] Executed endpoint '/ (/)'
+2024-03-23 11:43:11.454 +01:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/ - 200 null text/html; charset=utf-8 8.6032ms
+2024-03-23 11:43:13.475 +01:00 [INF] Request starting HTTP/1.1 POST http://localhost:5000/_blazor/disconnect - multipart/form-data; boundary=----WebKitFormBoundaryb4kGPEoo46sZJxdh 359
+2024-03-23 11:43:13.476 +01:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2024-03-23 11:43:13.492 +01:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2024-03-23 11:43:13.492 +01:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2024-03-23 11:43:13.492 +01:00 [INF] Request finished HTTP/1.1 POST http://localhost:5000/_blazor/disconnect - 200 0 null 17.1812ms
+2024-03-23 11:43:13.494 +01:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/_blazor?id=Am5K4OJNL-tSYKoAzA3WHw - 101 null null 4221.4304ms
