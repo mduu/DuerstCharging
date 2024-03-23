@@ -6,7 +6,6 @@ using Serilog;
 using Serilog.Events;
 
 var builder = WebApplication.CreateBuilder(args);
-//var builder = Host.CreateApplicationBuilder(args);
 builder.Environment.ApplicationName = "Duerst Charging";
 
 Log.Logger = new LoggerConfiguration()
