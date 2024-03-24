@@ -11,12 +11,10 @@ public class ChargingStation : IChargingStation
 {
     private const int TheUnitIdentifier = 255;
     private readonly ILogger<ChargingStation> logger;
-    private DateTimeOffset lastSuccessfulRetrieve = DateTimeOffset.MinValue;
-
     private readonly ResiliencePipeline<ModbusTcpClient> modbusConnectionPipeline;
     private readonly ResiliencePipeline<Memory<uint>> readResiliencePipeline;
     private readonly ResiliencePipeline writeResiliencePipeline;
-
+    
     private ChargingStation(
         ILogger<ChargingStation> logger,
         IPAddress ipAddress)
@@ -89,6 +87,7 @@ public class ChargingStation : IChargingStation
     }
 
     public IPAddress IpAddress { get; }
+    public DateTimeOffset LastSuccessfulRetrieve { get; private set; } = DateTimeOffset.MinValue;
     public ChargingState ChargingState { get; private set; }
     public CableState CableState { get; private set; }
     public uint ErrorCode { get; private set; }
@@ -99,13 +98,13 @@ public class ChargingStation : IChargingStation
 
     public async Task<bool> RetrieveInformation()
     {
-        if (lastSuccessfulRetrieve.AddMilliseconds(500) > DateTimeOffset.UtcNow)
+        if (LastSuccessfulRetrieve.AddMilliseconds(500) > DateTimeOffset.UtcNow)
         {
             // NOTE: Manual recommends to retrieve information not more then every 500ms
             logger.LogInformation(
                 "Throttle information retrieval from station {Station} because last time as less then 500ms ago ({LastRetrieveTime:G}) and its recommended to not retrieve more often then every 500ms",
                 this,
-                lastSuccessfulRetrieve);
+                LastSuccessfulRetrieve);
 
             return true;
         }
@@ -132,7 +131,7 @@ public class ChargingStation : IChargingStation
             FailsafeCurrentSetting = await GetUint32Register(client, 1600);
             FailsafeTimeoutSetting = await GetUint32Register(client, 1602);
 
-            lastSuccessfulRetrieve = DateTimeOffset.UtcNow;
+            LastSuccessfulRetrieve = DateTimeOffset.UtcNow;
 
             return true;
         }

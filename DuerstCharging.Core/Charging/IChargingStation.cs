@@ -5,6 +5,7 @@ namespace DuerstCharging.Core.Charging;
 public interface IChargingStation
 {
     IPAddress IpAddress { get; }
+    DateTimeOffset LastSuccessfulRetrieve { get; }
     ChargingState ChargingState { get; }
     CableState CableState { get; }
     uint ErrorCode { get; }
