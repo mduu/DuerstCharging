@@ -29,8 +29,8 @@ public enum ChargingState
     Error = 4,
 
     /// <summary>
-    /// The charging process is temporarily interrupted because the tempera- ture is too high or the wallbox is in
-    /// suspended mode.
+    /// The charging process is temporarily interrupted because the temperature is too high
+    /// or the wallbox is in suspended mode.
     /// </summary>
     Suspended = 5,
 }
