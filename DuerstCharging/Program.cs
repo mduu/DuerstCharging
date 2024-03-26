@@ -10,14 +10,14 @@ builder.WebHost.UseUrls("http://*:8088", "https://*:8089");
 builder.Environment.ApplicationName = "Duerst Charging";
 
 Log.Logger = new LoggerConfiguration()
-    .MinimumLevel.Information()
     .WriteTo.File("logs/chargingman.log", rollingInterval: RollingInterval.Month)
-    .WriteTo.Console(LogEventLevel.Information)
     .CreateLogger();
 
 builder.Logging.ClearProviders();
 builder.Services.AddLogging(loggingBuilder =>
     loggingBuilder.AddSerilog(dispose: true));
+builder.Host.UseSerilog((hostingContext, loggerConfiguration) =>
+    loggerConfiguration.ReadFrom.Configuration(hostingContext.Configuration));
 
 builder.Configuration
     .AddJsonFile("appsettings.json", false, true)
