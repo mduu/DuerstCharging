@@ -1,5 +1,6 @@
 using DuerstCharging.Core;
 using DuerstCharging.Core.Charging;
+using DuerstCharging.Core.Logging;
 using DuerstCharging.Core.Scheduling;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -13,6 +14,9 @@ public static class ServiceConfiguration
         services.AddSingleton<IChargingNetwork, ChargingNetwork>();
         services.AddSingleton<ISchedule, Schedule>();
         services.AddSingleton<IChargingManager, ChargingManager>();
+
+        services.AddTransient<ILogReader, LogReader>();
+
         services.AddHostedService<Worker>();
 
         return services;

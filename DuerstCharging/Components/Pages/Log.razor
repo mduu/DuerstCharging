@@ -1,9 +1,48 @@
 @page "/log"
+@using DuerstCharging.Core.Logging
+@attribute [StreamRendering]
+@inject ILogReader LogReader;
 
 <PageTitle>Log</PageTitle>
 
 <h1>Logs</h1>
 
+@if (logLines is not null)
+{
+    <table class="table table-striped table-hover table-borderless table-sm table-responsive">
+        <tbody>
+        @foreach (var log in logLines)
+        {
+            <tr class="@GetLogRowClassName(log)">
+                <td>@log</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+
+    <pre>
+   
+</pre>
+}
+else
+{
+    <div>No logs found.</div>
+}
 
 @code {
+
+    IEnumerable<string>? logLines = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        logLines = (await LogReader.ReadLog(CancellationToken.None)).Reverse();
+    }
+
+    private string GetLogRowClassName(string log)
+        => log.Contains("[ERR]")
+            ? "table-danger"
+            : log.Contains("[WARN]")
+                ? "table-warning"
+                : "";
+
 }
