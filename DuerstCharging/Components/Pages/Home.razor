@@ -1,7 +1,9 @@
 ﻿@page "/"
 @using DuerstCharging.Core.Charging
 @using System.Collections.Immutable
+@using DuerstCharging.Core.Scheduling
 @inject IChargingNetwork chargingNetwork;
+@inject ISchedule schedule;
 
 <PageTitle>Home</PageTitle>
 
@@ -23,13 +25,14 @@
                 <div class="card-body">
                     <h5 class="card-title">
                         <div class="float-start me-2">
-                            @if (station.IsEnabled)
+                            @if (!station.IsEnabled ||
+                                 (station.ChargingState == ChargingState.UnpluggedOrLocked && schedule.GetIsChargingProhibited()))
                             {
-                                <span class="badge rounded-pill bg-success">Enabled</span>
+                                <span class="badge rounded-pill bg-info text-dark">Disabled</span>
                             }
                             else
                             {
-                                <span class="badge rounded-pill bg-info text-dark">Disabled</span>
+                                <span class="badge rounded-pill bg-success">Enabled</span>
                             }
                         </div>
                         <span>@station.IpAddress</span>
