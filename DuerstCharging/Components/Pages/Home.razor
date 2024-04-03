@@ -5,23 +5,24 @@
 @inject IChargingNetwork chargingNetwork;
 @inject ISchedule schedule;
 
-<PageTitle>Home</PageTitle>
+<PageTitle>Home - DuerstCharging</PageTitle>
 
-<h1>Welcome to Duerst-Charing</h1>
-
-<h3>System State</h3>
+<h1 class="display-6">System State</h1>
 <ul>
     <li>App: <span class="badge rounded-pill bg-success">Running</span></li>
     <li>Web UI: <span class="badge rounded-pill bg-success">Running</span></li>
 </ul>
 
-<h3>Charging Stations:</h3>
+<h1 class="display-6">Charging Stations</h1>
 @if (chargingStations != null)
 {
     <div>
         @foreach (var station in chargingStations)
         {
-            <div class="card">
+            <div class="card @(GetChargingStationStyle(station))">
+                <div class="card-header">
+                    Charging Station
+                </div>
                 <div class="card-body">
                     <h5 class="card-title">
                         <div class="float-start me-2">
@@ -79,6 +80,12 @@ else
         chargingStations = await chargingNetwork.GetAllChargingStations();
         await base.OnInitializedAsync();
     }
+
+    private string GetChargingStationStyle(IChargingStation chargingStation)
+        => !chargingStation.IsEnabled ||
+           chargingStation.ChargingState == ChargingState.UnpluggedOrLocked
+            ? "text-bg-info"
+            : "text-bg-success";
 
     private string FormatCableState(CableState cableState)
         => cableState switch
