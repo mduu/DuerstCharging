@@ -7,81 +7,87 @@
 
 <PageTitle>Home - DuerstCharging</PageTitle>
 
-<div class="card m-2 text-bg-primary" style="width: 25rem">
-    <div class="card-header">
-        System
-    </div>
-    <div class="card-body">
-        <div class="card-text pt-3">
-            <div class="list-group">
-                <div class="list-group-item list-group-item-primary">
-                    App: <span class="float-end badge rounded-pill bg-primary">Running</span>
-                </div> 
-                <div class="list-group-item list-group-item-primary">
-                    Web UI: <span class="float-end badge rounded-pill bg-primary">Running</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<div class="container">
 
-@if (chargingStations != null)
-{
-    <div>
-        @foreach (var station in chargingStations)
-        {
-            <div class="card m-2 @(GetChargingStationStyle(station))" style="width: 25rem">
-                <div class="card-header">
-                    Charging Station
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title">
-                        <div class="float-end me-2">
-                            @if (!station.IsEnabled ||
-                                 (station.ChargingState == ChargingState.UnpluggedOrLocked && schedule.GetIsChargingProhibited()))
-                            {
-                                <span class="badge rounded-pill bg-primary">Disabled</span>
-                            }
-                            else
-                            {
-                                <span class="badge rounded-pill bg-primary">Enabled</span>
-                            }
+    <div class="row">
+
+        <div class="card m-2 col-4 col-sm-12 text-bg-primary">
+            <div class="card-header">
+                System
+            </div>
+            <div class="card-body">
+                <div class="card-text pt-3">
+                    <div class="list-group">
+                        <div class="list-group-item list-group-item-primary">
+                            App: <span class="float-end badge rounded-pill bg-primary">Running</span>
                         </div>
-                        <span>@station.IpAddress</span>
-                    </h5>
-                    <small class="card-subtitle mb-2">
-                        Updated: @station.LastSuccessfulRetrieve.ToString("G")
-                    </small>
-                    <div class="card-text pt-3">
-                        <div class="list-group">
-                            <div class="list-group-item @(GetChargingStationItemStyle(station))">
-                                <div class="fw-bold">Cable state</div>
-                                <div>@FormatCableState(station.CableState)</div>
-                            </div>
-                            <div class="list-group-item @(GetChargingStationItemStyle(station))">
-                                <div class="fw-bold">Charging state</div>
-                                <div>@FormatChargingState(station.ChargingState)</div>
-                            </div>
-                            @if (station.ErrorCode != 0)
-                            {
-                                <div class="list-group-item list-group-item-danger">
-                                    <div class="fw-bold">Charging state:</div>
-                                    <div>@station.ErrorCode</div>
-                                </div>
-                            }
+                        <div class="list-group-item list-group-item-primary">
+                            Web UI: <span class="float-end badge rounded-pill bg-primary">Running</span>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+
+        @if (chargingStations != null)
+        {
+            @foreach (var station in chargingStations)
+            {
+                <div class="card m-2 col-4 col-sm-12 @(GetChargingStationStyle(station))">
+                    <div class="card-header">
+                        Charging Station
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <div class="float-end me-2">
+                                @if (!station.IsEnabled ||
+                                     (station.ChargingState == ChargingState.UnpluggedOrLocked && schedule.GetIsChargingProhibited()))
+                                {
+                                    <span class="badge rounded-pill bg-primary">Disabled</span>
+                                }
+                                else
+                                {
+                                    <span class="badge rounded-pill bg-primary">Enabled</span>
+                                }
+                            </div>
+                            <span>@station.IpAddress</span>
+                        </h5>
+                        <small class="card-subtitle mb-2">
+                            Updated: @station.LastSuccessfulRetrieve.ToString("G")
+                        </small>
+                        <div class="card-text pt-3">
+                            <div class="list-group">
+                                <div class="list-group-item @(GetChargingStationItemStyle(station))">
+                                    <div class="fw-bold">Cable state</div>
+                                    <div>@FormatCableState(station.CableState)</div>
+                                </div>
+                                <div class="list-group-item @(GetChargingStationItemStyle(station))">
+                                    <div class="fw-bold">Charging state</div>
+                                    <div>@FormatChargingState(station.ChargingState)</div>
+                                </div>
+                                @if (station.ErrorCode != 0)
+                                {
+                                    <div class="list-group-item list-group-item-danger">
+                                        <div class="fw-bold">Charging state:</div>
+                                        <div>@station.ErrorCode</div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
         }
+        else
+        {
+            <div class="spinner-grow text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        }
+
     </div>
-}
-else
-{
-    <div class="spinner-grow text-primary" role="status">
-        <span class="visually-hidden">Loading...</span>
-    </div>
-}
+
+</div>
 
 @code {
     private ImmutableArray<IChargingStation> chargingStations;
