@@ -11,7 +11,7 @@
 
     <div class="row">
 
-        <div class="card m-2 col-4 col-sm-12 text-bg-primary">
+        <div class="card col-12 col-lg-6 g-1 text-bg-primary">
             <div class="card-header">
                 System
             </div>
@@ -28,12 +28,15 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <div class="row">
 
         @if (chargingStations != null)
         {
             @foreach (var station in chargingStations)
             {
-                <div class="card m-2 col-4 col-sm-12 @(GetChargingStationStyle(station))">
+                <div class="card col-12 col-lg-6 g-1 @(GetChargingStationStyle(station))">
                     <div class="card-header">
                         Charging Station
                     </div>
@@ -84,9 +87,7 @@
                 <span class="visually-hidden">Loading...</span>
             </div>
         }
-
     </div>
-
 </div>
 
 @code {
