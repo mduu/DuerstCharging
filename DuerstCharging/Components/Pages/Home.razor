@@ -7,47 +7,58 @@
 
 <PageTitle>Home - DuerstCharging</PageTitle>
 
-<h1 class="display-6">System State</h1>
-<ul>
-    <li>App: <span class="badge rounded-pill bg-success">Running</span></li>
-    <li>Web UI: <span class="badge rounded-pill bg-success">Running</span></li>
-</ul>
+<div class="card m-2 text-bg-primary" style="width: 25rem">
+    <div class="card-header">
+        System
+    </div>
+    <div class="card-body">
+        <div class="card-text pt-3">
+            <div class="list-group">
+                <div class="list-group-item list-group-item-primary">
+                    App: <span class="float-end badge rounded-pill bg-primary">Running</span>
+                </div> 
+                <div class="list-group-item list-group-item-primary">
+                    Web UI: <span class="float-end badge rounded-pill bg-primary">Running</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-<h1 class="display-6">Charging Stations</h1>
 @if (chargingStations != null)
 {
     <div>
         @foreach (var station in chargingStations)
         {
-            <div class="card @(GetChargingStationStyle(station))">
+            <div class="card m-2 @(GetChargingStationStyle(station))" style="width: 25rem">
                 <div class="card-header">
                     Charging Station
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">
-                        <div class="float-start me-2">
+                        <div class="float-end me-2">
                             @if (!station.IsEnabled ||
                                  (station.ChargingState == ChargingState.UnpluggedOrLocked && schedule.GetIsChargingProhibited()))
                             {
-                                <span class="badge rounded-pill bg-info text-dark">Disabled</span>
+                                <span class="badge rounded-pill bg-primary">Disabled</span>
                             }
                             else
                             {
-                                <span class="badge rounded-pill bg-success">Enabled</span>
+                                <span class="badge rounded-pill bg-primary">Enabled</span>
                             }
                         </div>
                         <span>@station.IpAddress</span>
                     </h5>
-                    <small class="card-subtitle mb-2 text-body-secondary text-sm-start text-secondary">
+                    <small class="card-subtitle mb-2">
                         Updated: @station.LastSuccessfulRetrieve.ToString("G")
                     </small>
                     <div class="card-text pt-3">
                         <div class="list-group">
-                            <div class="list-group-item">
+                            <div class="list-group-item @(GetChargingStationItemStyle(station))">
                                 <div class="fw-bold">Cable state</div>
                                 <div>@FormatCableState(station.CableState)</div>
                             </div>
-                            <div class="list-group-item">
+                            <div class="list-group-item @(GetChargingStationItemStyle(station))">
                                 <div class="fw-bold">Charging state</div>
                                 <div>@FormatChargingState(station.ChargingState)</div>
                             </div>
@@ -86,6 +97,12 @@ else
            chargingStation.ChargingState == ChargingState.UnpluggedOrLocked
             ? "text-bg-info"
             : "text-bg-success";
+
+    private string GetChargingStationItemStyle(IChargingStation chargingStation)
+        => !chargingStation.IsEnabled ||
+           chargingStation.ChargingState == ChargingState.UnpluggedOrLocked
+            ? "list-group-item-info"
+            : "list-group-item-success";
 
     private string FormatCableState(CableState cableState)
         => cableState switch
